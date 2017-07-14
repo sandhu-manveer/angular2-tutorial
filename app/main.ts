@@ -1,18 +1,10 @@
-import { Component } from 'angular2/core';
-import { bootstrap } from 'angular2/platform/browser';
+import {bootstrap} from 'angular2/platform/browser';
+import * as materialLite from 'material-design-lite';
 
-import { HelloAngular2 } from './helloAngular2';
-
-@Component({
-    selector: 'app',
-    directives: [HelloAngular2],
-    template: '<hello-angular who="name" (onSayHello)="didGreet($event)"></hello-angular>'
-})
-class AppComponent{
-    didGreet(value) {
-        console.log(value);
-    }
-}
+import {AppComponent} from './app.component';
 
 bootstrap(AppComponent, [])
+    .then(() => {
+        materialLite.componentHandler.upgradeAllRegistered();
+    })
     .catch(err => console.error(err));

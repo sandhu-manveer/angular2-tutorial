@@ -27,11 +27,18 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/Rx'], function(exports_
             SensorService = (function () {
                 function SensorService(http) {
                     this.http = http;
+                    this.dashboardSensors = [];
                 }
                 SensorService.prototype.discoverSensors = function () {
                     return this.http
                         .get('/assets/data/newsensors.json')
                         .map(function (res) { return res.json(); });
+                };
+                SensorService.prototype.addToDashboard = function (sensor) {
+                    this.dashboardSensors.push(sensor);
+                };
+                SensorService.prototype.getDashboardSensors = function () {
+                    return this.dashboardSensors;
                 };
                 SensorService = __decorate([
                     core_1.Injectable(), 

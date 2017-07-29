@@ -12,10 +12,26 @@
 
     <hr />
 
-    <sensor-filter #filterCmp (filterChanges)="refreshSensors()"></sensor-filter>
+    <sensor-filter #filterCmp (filterChange)="refreshSensors($event)"></sensor-filter>
 
     <hr />
 
-    <sensor-list [sensors]="sensors | filterSensor: filterCmp.selectedCategory"></sensor-list>
+    <sensor-list [sensors]="sensors | filterSensor: filterCmp.selectedCategory" showAdd="true" (addItem)="configModal.open($event)"></sensor-list>
 
 </div>
+
+<div class="app-page-content mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+
+    <h1 class="mdl-typography--display-2">
+        Configured sensors
+    </h1>
+
+     <div *ngIf="configuredSensors && configuredSensors.length > 0">
+        <sensor-list [sensors]="configuredSensors"></sensor-list>
+    </div>
+    <div *ngIf="!configuredSensors || configuredSensors.length === 0">
+        <p><i>No sensors configured yet</i></p>
+    </div>
+</div>
+
+<config-modal #configModal (confirm)="addToDashboard($event)"></config-modal>

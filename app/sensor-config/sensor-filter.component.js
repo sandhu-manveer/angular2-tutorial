@@ -21,14 +21,12 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             SensorFilterComponent = (function () {
                 function SensorFilterComponent() {
                     this.filterChanges = new core_1.EventEmitter();
-                }
-                SensorFilterComponent.prototype.ngOnInit = function () {
                     this.categories = [
                         'temperature',
                         'humidity',
                         'switch'
                     ];
-                };
+                }
                 SensorFilterComponent.prototype.categoryChanged = function (value) {
                     this.selectedCategory = value;
                     this.filterChanges.emit(this.selectedCategory);

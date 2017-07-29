@@ -20,12 +20,24 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             SensorListComponent = (function () {
                 function SensorListComponent() {
+                    this.showAdd = false;
+                    this.addItem = new core_1.EventEmitter();
                 }
-                SensorListComponent.prototype.ngOnInit = function () { };
+                SensorListComponent.prototype.add = function (sensor) {
+                    this.addItem.emit(sensor);
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', Array)
                 ], SensorListComponent.prototype, "sensors", void 0);
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', Boolean)
+                ], SensorListComponent.prototype, "showAdd", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', core_1.EventEmitter)
+                ], SensorListComponent.prototype, "addItem", void 0);
                 SensorListComponent = __decorate([
                     core_1.Component({
                         selector: 'sensor-list',

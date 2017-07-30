@@ -3,3 +3,11 @@ bower_components/
 *.js.map
 app/*.js
 typings/
+**/bower_packages
+**/jspm_packages
+**/typings
+
+*.log
+
+app/**/*.js
+app/**/*.js.map

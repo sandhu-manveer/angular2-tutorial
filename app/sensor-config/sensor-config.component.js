@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../core/sensors.service', './sensor-list.component', './sensor-filter.component', './config-modal.component', './filter-sensor.pipe'], function(exports_1, context_1) {
+System.register(['angular2/core', '../core/sensors.service', './sensor-list.component', './sensor-filter.component', '../modal/modal.component', './filter-sensor.pipe'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', '../core/sensors.service', './sensor-list.comp
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, sensors_service_1, sensor_list_component_1, sensor_filter_component_1, config_modal_component_1, filter_sensor_pipe_1;
+    var core_1, sensors_service_1, sensor_list_component_1, sensor_filter_component_1, modal_component_1, filter_sensor_pipe_1;
     var SensorConfigureComponent;
     return {
         setters:[
@@ -26,8 +26,8 @@ System.register(['angular2/core', '../core/sensors.service', './sensor-list.comp
             function (sensor_filter_component_1_1) {
                 sensor_filter_component_1 = sensor_filter_component_1_1;
             },
-            function (config_modal_component_1_1) {
-                config_modal_component_1 = config_modal_component_1_1;
+            function (modal_component_1_1) {
+                modal_component_1 = modal_component_1_1;
             },
             function (filter_sensor_pipe_1_1) {
                 filter_sensor_pipe_1 = filter_sensor_pipe_1_1;
@@ -53,10 +53,18 @@ System.register(['angular2/core', '../core/sensors.service', './sensor-list.comp
                     console.log('adding sensor', sensor);
                     this.sensorService.addToDashboard(sensor);
                 };
+                SensorConfigureComponent.prototype.selectSensor = function (sensor, modal) {
+                    this.sensorModel = {
+                        name: sensor.name,
+                        description: sensor.description,
+                        type: sensor.type
+                    };
+                    modal.open();
+                };
                 SensorConfigureComponent = __decorate([
                     core_1.Component({
                         selector: 'configure',
-                        directives: [sensor_list_component_1.SensorListComponent, sensor_filter_component_1.SensorFilterComponent, config_modal_component_1.ConfigModalComponent],
+                        directives: [sensor_list_component_1.SensorListComponent, sensor_filter_component_1.SensorFilterComponent, modal_component_1.ModalComponent],
                         pipes: [filter_sensor_pipe_1.FilterSensor],
                         templateUrl: 'app/sensor-config/sensor-config.html'
                     }), 

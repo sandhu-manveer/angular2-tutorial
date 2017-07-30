@@ -4,13 +4,13 @@ import { Sensor, SensorService } from '../core/sensors.service';
 
 import { SensorListComponent } from './sensor-list.component';
 import { SensorFilterComponent } from './sensor-filter.component';
-import { ConfigModalComponent } from './config-modal.component';
+import { ModalComponent } from '../modal/modal.component';
 
 import { FilterSensor } from './filter-sensor.pipe';
 
 @Component({
   selector: 'configure',
-  directives: [ SensorListComponent, SensorFilterComponent, ConfigModalComponent ],
+  directives: [ SensorListComponent, SensorFilterComponent, ModalComponent ],
   pipes: [ FilterSensor ],
   templateUrl: 'app/sensor-config/sensor-config.html'
 })
@@ -18,6 +18,7 @@ import { FilterSensor } from './filter-sensor.pipe';
 export class SensorConfigureComponent implements OnInit {
     private sensors: Sensor[] = [];
     private configuredSensors: Sensor[];
+    private sensorModel: Sensor;
 
     constructor (private sensorService: SensorService) {
     }
@@ -37,5 +38,14 @@ export class SensorConfigureComponent implements OnInit {
     addToDashboard(sensor: Sensor) {
         console.log('adding sensor', sensor);
         this.sensorService.addToDashboard(sensor);
+    }
+
+    selectSensor(sensor: Sensor, modal: ModalComponent) {
+        this.sensorModel = {
+            name: sensor.name,
+            description: sensor.description,
+            type: sensor.type
+        };
+        modal.open();
     }
 }

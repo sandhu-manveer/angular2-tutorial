@@ -1,30 +1,17 @@
-import { Component, Output, EventEmitter } from 'angular2/core';
+import {Component, Output, EventEmitter } from 'angular2/core';
 
 import { Sensor } from '../core/sensors.service';
 
 @Component({
-    selector: 'config-modal',
+    selector: 'modal',
     template: `
-        <div class="md-dialog mdl-color--white mdl-shadow--2dp" [hidden]="!isOpen">
+        <div #dialog class="md-dialog mdl-color--white mdl-shadow--2dp" [hidden]="!isOpen" (keydown.esc)="cancel()" (keydown.enter)="ok()">
             <div class="md-dialog-content">
-                <div class="md-dialog-content">
-                    <div class="typo-styles__demo mdl-typography--headline">
-                        {{ sensorModel.name }}
-                    </div>
-                    <div class="md-dialog-content-body">
-                        <div class="mdl-card__supporting-text">
-                            <form action="#">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" [ngClass]="{ 'is-dirty': sensorModel.name}">
-                                    <input class="mdl-textfield__input" type="text" id="name" [(ngModel)]="sensorModel.name"  />
-                                    <label class="mdl-textfield__label" for="name">Name</label>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" [ngClass]="{ 'is-dirty': sensorModel.description}">
-                                    <textarea class="mdl-textfield__input" [(ngModel)]="sensorModel.description"></textarea>
-                                    <label class="mdl-textfield__label" for="userpass">Description</label>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <div class="typo-styles__demo mdl-typography--headline">
+                    <ng-content select="[title]"></ng-content>
+                </div>
+                <div class="md-dialog-content-body">
+                    <ng-content select="[content]"></ng-content>
                 </div>
             </div>
             <div class="md-dialog-actions">
@@ -35,6 +22,7 @@ import { Sensor } from '../core/sensors.service';
                     Cancel
                 </button>
             </div>
+            <div tabindex="0" (focus)="dialog.focus()"></div>
         </div>
         <div class="md-backdrop" [hidden]="!isOpen"></div>
     `,
@@ -68,6 +56,7 @@ import { Sensor } from '../core/sensors.service';
         .md-dialog-content-body {
             padding: 15px 0 5px 0;
         }
+
 
         .md-dialog-actions {
             display: -webkit-flex;
@@ -105,29 +94,23 @@ import { Sensor } from '../core/sensors.service';
     ]
 })
 
-export class ConfigModalComponent {
+export class ModalComponent {
     private isOpen: boolean = false;
-    private sensorModel: Sensor = { name: '', description: '', type: ''};
+    @Output() confirm: EventEmitter<any> = new EventEmitter();
 
-    @Output() confirm: EventEmitter<Sensor> = new EventEmitter();
+    constructor() { }
 
-    constructor() {}
-
-    open(sensor: Sensor) {
-        this.sensorModel = {
-            name: sensor.name,
-            description: sensor.description,
-            type: sensor.type
-        };
+    open() {
         this.isOpen = true;
     }
 
     ok() {
         this.isOpen = false;
-        this.confirm.emit(this.sensorModel);
+        this.confirm.emit(null);
     }
 
     cancel() {
         this.isOpen = false;
     }
+
 }

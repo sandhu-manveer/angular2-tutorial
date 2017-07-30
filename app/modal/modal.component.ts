@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter } from 'angular2/core';
+import { Component, Output, EventEmitter } from 'angular2/core';
 
 import { Sensor } from '../core/sensors.service';
 
@@ -96,17 +96,18 @@ import { Sensor } from '../core/sensors.service';
 
 export class ModalComponent {
     private isOpen: boolean = false;
-    @Output() confirm: EventEmitter<any> = new EventEmitter();
+    private nextFn: Function;
 
     constructor() { }
 
-    open() {
+    open(callback: Function) {
+        this.nextFn = callback;
         this.isOpen = true;
     }
 
-    ok() {
+    ok(callback) {
+        this.nextFn();
         this.isOpen = false;
-        this.confirm.emit(null);
     }
 
     cancel() {

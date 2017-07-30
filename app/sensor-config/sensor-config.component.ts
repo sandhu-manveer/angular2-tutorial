@@ -4,13 +4,12 @@ import { Sensor, SensorService } from '../core/sensors.service';
 
 import { SensorListComponent } from './sensor-list.component';
 import { SensorFilterComponent } from './sensor-filter.component';
-import { ModalComponent } from '../modal/modal.component';
 
 import { FilterSensor } from './filter-sensor.pipe';
 
 @Component({
   selector: 'configure',
-  directives: [ SensorListComponent, SensorFilterComponent, ModalComponent ],
+  directives: [ SensorListComponent, SensorFilterComponent ],
   pipes: [ FilterSensor ],
   templateUrl: 'app/sensor-config/sensor-config.html'
 })
@@ -36,11 +35,10 @@ export class SensorConfigureComponent implements OnInit {
     }
 
     addToDashboard(sensor: Sensor) {
-        console.log('adding sensor', sensor);
         this.sensorService.addToDashboard(sensor);
     }
 
-    selectSensor(sensor: Sensor, modal: ModalComponent) {
+    selectSensor(sensor: Sensor, modal) {
         this.sensorModel = {
             name: sensor.name,
             description: sensor.description,

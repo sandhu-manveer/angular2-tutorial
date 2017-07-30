@@ -21,22 +21,18 @@ System.register(['angular2/core'], function(exports_1, context_1) {
             ModalComponent = (function () {
                 function ModalComponent() {
                     this.isOpen = false;
-                    this.confirm = new core_1.EventEmitter();
                 }
-                ModalComponent.prototype.open = function () {
+                ModalComponent.prototype.open = function (callback) {
+                    this.nextFn = callback;
                     this.isOpen = true;
                 };
-                ModalComponent.prototype.ok = function () {
+                ModalComponent.prototype.ok = function (callback) {
+                    this.nextFn();
                     this.isOpen = false;
-                    this.confirm.emit(null);
                 };
                 ModalComponent.prototype.cancel = function () {
                     this.isOpen = false;
                 };
-                __decorate([
-                    core_1.Output(), 
-                    __metadata('design:type', core_1.EventEmitter)
-                ], ModalComponent.prototype, "confirm", void 0);
                 ModalComponent = __decorate([
                     core_1.Component({
                         selector: 'modal',
